@@ -13,9 +13,12 @@ app = Flask(__name__)
 
 ##Connect to Database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_BINDS'] = {
+    'cafes': 'sqlite:///cafes.db'
+}
+
 db = SQLAlchemy()
 db.init_app(app)
-
 
 ##Cafe TABLE Configuration
 class Cafe(db.Model):
@@ -43,7 +46,7 @@ with app.app_context():
 @app.route("/")
 def home():
     return render_template("index.html")
-    
+
 
 ## HTTP GET - Read Record
 @app.route("/random")
