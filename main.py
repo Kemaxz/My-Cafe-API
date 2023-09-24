@@ -52,7 +52,11 @@ def home():
 @app.route("/random")
 def get_random_cafe():
     all_records = db.session.execute(db.select(Cafe)).scalars().all()
-    random_cafe = random.choice(all_records)
+    try:
+
+        random_cafe = random.choice(all_records)
+    except IndexError:
+        return jsonify(error={'empty list':"There are no results at the moment"})
     # return jsonify(name=random_cafe.name,
     #                location=random_cafe.location,
     #                id=random_cafe.id,
