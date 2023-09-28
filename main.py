@@ -27,17 +27,16 @@ class Cafe(db.Model):
     map_url = db.Column(db.String(500), nullable=False)
     img_url = db.Column(db.String(500), nullable=False)
     location = db.Column(db.String(250), nullable=False)
-    seats = db.Column(db.String(250), nullable=False)
+    has_sockets = db.Column(db.Boolean, nullable=False)
     has_toilet = db.Column(db.Boolean, nullable=False)
     has_wifi = db.Column(db.Boolean, nullable=False)
-    has_sockets = db.Column(db.Boolean, nullable=False)
     can_take_calls = db.Column(db.Boolean, nullable=False)
+    seats = db.Column(db.String(250), nullable=False)
     coffee_price = db.Column(db.String(250), nullable=True)
 
     def to_dict(self):
 
         return {column.name:getattr(self,column.name) for column in self.__table__.columns}
-
 
 with app.app_context():
     db.create_all()
@@ -159,6 +158,6 @@ def delete_cafe(cafe_id):
 
 ## HTTP DELETE - Delete Record
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
+#
+# if __name__ == '__main__':
+#     app.run(debug=True)
